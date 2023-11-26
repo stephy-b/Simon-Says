@@ -51,3 +51,16 @@ body {
   box-shadow: 0 0 20px white;
   background-color: grey;
 }
+
+.flash {
+  animation: flashAnimation 0.3s alternate infinite;
+}
+
+@keyframes flashAnimation {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
