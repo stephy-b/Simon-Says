@@ -6,6 +6,8 @@ const WRONGSOUND = new Audio("sounds/wrong.mp3")
 
 let buttonColors = ["red", "blue", "green", "yellow"];
 let gamePattern = [];
+let userClickedPattern = [];
+
 
 
 const playSound = (color) => {
@@ -52,3 +54,26 @@ const nextSequence = () => {
 
   return randomChosenColor;
 };
+
+
+const animatePress = (currentColor) => {
+  $("#" + currentColor).addClass("pressed");
+
+  // After a short delay, remove the pressed class to revert the animation
+  setTimeout(() => {
+    $("#" + currentColor).removeClass("pressed");
+  }, 200);
+};
+
+
+$(".btn").on("click", (event) => {
+  let userChosenColor = $(event.target).attr("id");
+  // Add user's chosen color to userClickedPattern array
+  userClickedPattern.push(userChosenColor);
+  // Play sound corresponding to the clicked color
+  playSound(userChosenColor);
+  // Call animation
+  animatePress(userChosenColor);
+  // Log the pattern to the console
+  console.log(userClickedPattern);
+});  
