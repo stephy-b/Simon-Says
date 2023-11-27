@@ -39,7 +39,7 @@ function checkAnswer(currentLevel) {
     console.log("success");
 
     if (userClickedPattern.length === gamePattern.length) {
-      setTimeout(function () {
+      setTimeout(() => {
         nextSequence();
       }, 1000);
     }
@@ -51,33 +51,13 @@ function checkAnswer(currentLevel) {
     setTimeout(() => {
       $("body").removeClass("game-over");
     }, 200);
+    startOver();
   }
 }
 
 
-flashButton = (color) => {
-  // Select the button by ID and toggle a class for flashing
-  $("#" + color).addClass("flash");
-
-  // After a short delay, remove the flashing class to stop the animation
-  setTimeout(() => {
-    $("#" + color).removeClass("flash");
-  }, 400);    
-  playSound(color); // Call playSound when flashing the button
-};    
-
-
-animatePress = (currentColor) => {
-  $("#" + currentColor).addClass("pressed");
-
-  // After a short delay, remove the pressed class to revert the animation
-  setTimeout(() => {
-    $("#" + currentColor).removeClass("pressed");
-  }, 200);  
-};  
-
-
 nextSequence = () => {
+  userClickedPattern = [];
   // Increment the level
   level++;
   // Update the displayed level
@@ -92,6 +72,35 @@ nextSequence = () => {
   return randomChosenColor;
 };    
 
+
+startOver = () => {
+  level = 0;
+  gameStarted = false;
+  gamePattern = [];
+  userClickedPattern = [];
+}
+
+
+flashButton = (color) => {
+  // Select the button by ID and toggle a class for flashing
+  $("#" + color).addClass("flash");
+
+  // After a short delay, remove the flashing class to stop the animation
+  setTimeout(() => {
+    $("#" + color).removeClass("flash");
+  }, 400);      
+  playSound(color); // Call playSound when flashing the button
+};      
+
+
+animatePress = (currentColor) => {
+  $("#" + currentColor).addClass("pressed");
+
+  // After a short delay, remove the pressed class to revert the animation
+  setTimeout(() => {
+    $("#" + currentColor).removeClass("pressed");
+  }, 200);    
+};    
 
 playSound = (color) => {
   let audio = new Audio("sounds/" + color + ".mp3");
