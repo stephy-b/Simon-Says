@@ -11,7 +11,7 @@ let gameStarted = false;
 let level = 0;
 
 
-$(document).keydown(function() {
+$(document).keypress(function() {
   if (!gameStarted) {
     // Change title on game start
     $("#level-title").text("Level " + level);
@@ -21,8 +21,8 @@ $(document).keydown(function() {
 });  
 
 
-$(".btn").on("click", (event) => {
-  let userChosenColor = $(event.target).attr("id");
+$(".btn").click(function() {
+  let userChosenColor = $(this).attr("id");
   // Add user's chosen color to userClickedPattern array
   userClickedPattern.push(userChosenColor);
   // Play sound corresponding to the clicked color
@@ -30,14 +30,33 @@ $(".btn").on("click", (event) => {
   // Call animation
   animatePress(userChosenColor);
 
-  setTimeout(function () {
-    nextSequence();
-  }, 1000);
+  checkAnswer(userClickedPattern.length-1);
 });
 
 
-const flashButton = (color) => {
-  // Use jQuery to select the button by ID and toggle a class for flashing
+function checkAnswer(currentLevel) {
+  if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
+    console.log("success");
+
+    if (userClickedPattern.length === gamePattern.length) {
+      setTimeout(function () {
+        nextSequence();
+      }, 1000);
+    }
+  } else {
+    console.log("wrong");
+    playSound(WRONGSOUND);
+    $("#level-title").text("Game Over 🤡 Press Any Key to Restart");
+    $("body").addClass("game-over");
+    setTimeout(() => {
+      $("body").removeClass("game-over");
+    }, 200);
+  }
+}
+
+
+flashButton = (color) => {
+  // Select the button by ID and toggle a class for flashing
   $("#" + color).addClass("flash");
 
   // After a short delay, remove the flashing class to stop the animation
@@ -48,7 +67,7 @@ const flashButton = (color) => {
 };    
 
 
-const animatePress = (currentColor) => {
+animatePress = (currentColor) => {
   $("#" + currentColor).addClass("pressed");
 
   // After a short delay, remove the pressed class to revert the animation
@@ -58,7 +77,7 @@ const animatePress = (currentColor) => {
 };  
 
 
-const nextSequence = () => {
+nextSequence = () => {
   // Increment the level
   level++;
   // Update the displayed level
@@ -74,7 +93,7 @@ const nextSequence = () => {
 };    
 
 
-const playSound = (color) => {
+playSound = (color) => {
   let audio = new Audio("sounds/" + color + ".mp3");
   audio.play();
-  };    
+  };
