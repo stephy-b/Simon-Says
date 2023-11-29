@@ -2,7 +2,7 @@
 <br>
 A classic Simon Says game built using jQuery, JavaScript, HTML, and CSS. Test your memory by following the sequence of lights and sounds 🚨
 <br>
-<h3>How to Play<h3>
+<h3>How to Play</h3>
 - Press any key to begin the game.
 - Simon will give the first signal.
 - Repeat the signal by clicking the same colored buttons in the same order.
