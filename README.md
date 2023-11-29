@@ -13,6 +13,6 @@ A classic Simon Says game built using jQuery, JavaScript, HTML, and CSS. Test yo
 - Ensure a modern web browser is installed (Chrome, Firefox, Safari, etc.).
 <br>
 <h3>Installation</h3>
-- Clone the repository: git clone https://github.com/your-username/simon-says-game.git
+- Clone the repository: git clone https://github.com/stephy-b/Simon-Says.git
 - Navigate to the project directory.
 - Open the index.html file using your preferred web browser.
